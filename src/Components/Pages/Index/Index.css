@@ -65,7 +65,7 @@
     padding:0vh 4vw;
     border-bottom: 1px solid rgba(0, 0, 0, 0.4);
 }
-
+.input-select,
 .input-general{ 
     border:1px solid lightgray;
     padding:10px 16px;
@@ -74,7 +74,7 @@
     position: relative;
     margin:1vh 0vw;
 }
-
+.input-select > input,
 .input-general > input{ 
     border:none;
     width: 100%;
@@ -88,6 +88,7 @@ input:-webkit-autofill{
     /* color:black !o,; */
     -webkit-box-shadow: 0 0 0px 1000px white inset;
 }
+.input-select > input:focus,
 .input-general > input:focus{
     outline:none;
     border:none;
@@ -108,8 +109,10 @@ input:-webkit-autofill{
     left:10%;
     top:20%;
     color:grey;
+    display: flex;
     font-size:16px;
     user-select: none;
+    align-items: center;
 }
 
 .loggin-button{

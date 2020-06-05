@@ -78,11 +78,11 @@ function Login(){
 
         <h1 className="underline">Bienvenido !</h1>
         <label className="input-general">
-            <input type="text" name="login" id="username" autoComplete="false" required/>
+            <input type="text" name="login" id="username" autoComplete="off" autoSave="false" required/>
             <span className="input-placeholder">Usuario</span>
         </label>
         <label className="input-general">
-            <input type="password" name="login" id="password" autoComplete="false" required/>
+            <input type="password" name="login" id="password" autoComplete="off"  autoSave="false" required/>
             <span className="input-placeholder">Password</span>
         </label>
         <button className="loggin-button" onClick={LogIn}>Conectarse</button>

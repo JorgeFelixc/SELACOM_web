@@ -4,12 +4,20 @@ import './dashboard.css'
 import { ChangeURI, debounce } from '../../../Utils/Util';
 import { GetData } from '../../../Utils/HTTPmethods';
 import Table from '../../Tools/Table/Table';
+import DropdownList from '../../Tools/SelectBox/DropdownSelect';
 
 function Dashboard(props){ 
     const [usuario, setUsuario] = useState();
     const [calls, setCalls] = useState([]);
     const [dstFilter, setDstFilter] = useState("");
-    // const [filteredCalls, setFilteredCalls ] = useState([]);
+    const [sucursales, setSucursales] = useState([]);
+    const dropDownListDatos = [
+        {name: "Sucursal 1 (1, 668)", value:["1", "668"] },
+        {name: "Sucursal 2 (2, 667)", value:["2", "667"] },
+        {name: "Sucursal 3 (3, 687)", value:["3", "687"] },
+    ]
+
+
     useEffect(()=> {
         const user = localStorage.getItem("user");
         if(user){
@@ -36,29 +44,6 @@ function Dashboard(props){
         ChangeURI("/");
     }
 
-    // function ChangeData(e){ 
-    //     const value= e.target.value.toUpperCase();
-    //     if(value === ""){ 
-    //         setFilteredCalls([]);
-    //         return;
-    //     }
-    //     const data = calls.filter(res => { 
-    //         if(!res.dst){ 
-    //             return false;
-    //         }
-    //         const filteredItem = res.dst.toString().toUpperCase();
-    //         const bufferValue = filteredItem.slice(0,value.length);
-    //         console.log(value, bufferValue);
-    //         if(bufferValue === value){ 
-    //             return true;
-    //         }
-    //         return false;
-
-    //     });
-    //     console.log(filteredCalls);
-    //     setFilteredCalls([...data]);
-    //     // console.log("entro",e.target.value);
-    // }
 
 
 
@@ -94,14 +79,18 @@ function Dashboard(props){
                     <label className="input-general">
                         <input type="text" name="filtro" onChange={(e) => setDstFilter(e.target.value)} id="username" autoComplete="false" required/>
                         <span className="input-placeholder">Busqueda por Destino</span>
-                    </label>        
+                    </label>    
+
+                    {/* <span class="material-icons">search</span> */}
+                    <DropdownList datos={dropDownListDatos} callback={setSucursales} state={sucursales} placeholder="Seleccionar Sucursales" value="sucursales" />
 
                 </div>
                 { 
                     calls.length != 0 &&
                     <Table data={calls}
                         filters={{ 
-                            dst: dstFilter
+                            dst: dstFilter,
+                            src: sucursales
                         }} 
                         headers={ {
                             src:"Fuente",

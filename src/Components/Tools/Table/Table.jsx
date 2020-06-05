@@ -36,13 +36,34 @@ function Table({ data, dataIgnored, actions, headers, filters }) {
   // Que hago? comparo los filtros con cada campo de la tabla, y si coiniden
   // los filtro
   function filteredRow(propName, value){ 
-    console.log("algo?", propName, value);
+    // console.log("algo?", propName, value);
     if(!filters){ 
       return true;
     }
 
+    
 
-    const data = Object.entries(filters).filter(item => {
+    const entriesData = Object.entries(filters);
+    const isFill = entriesData.filter(item => { 
+      if( isArray(item[1])){ 
+        
+        if(item[1].length === 0){ 
+          return false;
+        }
+        return true;
+      }
+      
+      if(item[1] === ""){ 
+        return false;
+      }
+      return true;
+    })
+    if(isFill.length === 0){ 
+      return true;
+    }
+
+
+    const data = entriesData.filter(item => {
       if(!propName[item[0]]){ 
         return false;
       }
@@ -50,21 +71,54 @@ function Table({ data, dataIgnored, actions, headers, filters }) {
       if(item[1] === ""){ 
         return true;
       }
+
+      // Si la propiedad es un array de lugar de un string este filtra todos los strs
+      if(Array.isArray(item[1])){ 
+        if(item[1].length === 0){ 
+          return true;
+        }
+
+        // Si encuentra una coincidencia dentor del array
+        const isSomething = item[1].filter(res => {
+          const recortedValue = propName[item[0]].slice(0, res.toString().length).toUpperCase();
+          // console.log("filtro=?", recortedValue, res.toUpperCase())
+          if(res.toUpperCase() === recortedValue){ 
+            return true;
+          }
+          return false;
+        });
+
+        // console.log("hayAlgo=?",isSomething);
+        if(isSomething.length > 0){ 
+          return false;
+        }
+
+        return true;
+      }
+
+
       const filterValue = item[1].toUpperCase();
       const recortedValue = propName[item[0]].slice(0, filterValue.length).toUpperCase();
       
       if(filterValue === recortedValue){ 
-        return true;
+        return false;
       }
   
-      return false;
+      return true;
     });
 
-    if(data.length === 0 ){ 
-      return false;
+    console.log("data:", data, entriesData.length);
+    if(data.length >= 0 && data.length < entriesData.length){ 
+      return true;
     }
-    return true;
+
+    return false;
+
   }
+
+
+
+
   return (
     <>
       {DataExist(data) && <p className="no-data">:( No existen datos</p>}
