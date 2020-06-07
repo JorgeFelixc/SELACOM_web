@@ -19,9 +19,9 @@ function Dashboard(props){
     ]
 
     const dropDownPeticiones = [ 
-        {name: "Sucursal 1 (1, 668)", value:"1" },
-        {name: "Sucursal 2 (2, 667)", value:"2" },
-        {name: "Sucursal 3 (3, 687)", value:"3" },
+        {name: "Los Mochis", value:"1" },
+        {name: "Culiacan ", value:"2" },
+        {name: "Guasave ", value:"3" },
     ]
 
     useEffect(()=> {
