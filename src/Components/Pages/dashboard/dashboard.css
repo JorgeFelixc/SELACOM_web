@@ -154,11 +154,11 @@ nav > div{
     /* background-color:var(--secondary-bg); */
 }
 
-.chekbox-list > input[type="checkbox"]:checked + .checkbox-text{ 
+.chekbox-list > input:checked + .checkbox-text{ 
     background-color:var(--secondary-bg);
     color:white;
 }
-.chekbox-list > input[type="checkbox"]{
+.chekbox-list > input{
     opacity: 0;
     left:0;
     top:0;
@@ -167,4 +167,19 @@ nav > div{
     height: 100%;
     position: absolute;
     /* background-color:var(--secondary-bg); */
+}
+
+.nohay-wrapper{ 
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.nohay-wrapper > span{ 
+    font-size: 8em;
+    color:grey;
+}
+.nohay-wrapper > p{
+    font-size: 2em;
 }

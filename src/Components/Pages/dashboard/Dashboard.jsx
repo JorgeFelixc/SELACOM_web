@@ -11,12 +11,18 @@ function Dashboard(props){
     const [calls, setCalls] = useState([]);
     const [dstFilter, setDstFilter] = useState("");
     const [sucursales, setSucursales] = useState([]);
+    const [getSucursales, setGetSucursales] = useState([]);
     const dropDownListDatos = [
         {name: "Sucursal 1 (1, 668)", value:["1", "668"] },
         {name: "Sucursal 2 (2, 667)", value:["2", "667"] },
         {name: "Sucursal 3 (3, 687)", value:["3", "687"] },
     ]
 
+    const dropDownPeticiones = [ 
+        {name: "Sucursal 1 (1, 668)", value:"1" },
+        {name: "Sucursal 2 (2, 667)", value:"2" },
+        {name: "Sucursal 3 (3, 687)", value:"3" },
+    ]
 
     useEffect(()=> {
         const user = localStorage.getItem("user");
@@ -29,8 +35,12 @@ function Dashboard(props){
         GetCallsofServer();
     }, [])
 
-    async function GetCallsofServer(){
-        const get_calls = "http://localhost:3001/call/get";
+    useEffect(() => { 
+        GetCallsofServer(getSucursales[0]);
+    }, [getSucursales]);
+
+    async function GetCallsofServer(num_server = 1){
+        const get_calls = "http://localhost:3001/call/get/"+num_server;
         const getService = await GetData(get_calls);
         console.log("llamadas:", getService);
         if(getService){ 
@@ -44,7 +54,7 @@ function Dashboard(props){
         ChangeURI("/");
     }
 
-
+    
 
 
     return(
@@ -82,7 +92,8 @@ function Dashboard(props){
                     </label>    
 
                     {/* <span class="material-icons">search</span> */}
-                    <DropdownList datos={dropDownListDatos} callback={setSucursales} state={sucursales} placeholder="Seleccionar Sucursales" value="sucursales" />
+                    {/* <DropdownList datos={dropDownListDatos} callback={setSucursales} state={sucursales} placeholder="Filtro Sucursales" value="sucursales" /> */}
+                    <DropdownList datos={dropDownPeticiones} type="one" callback={setGetSucursales} state={getSucursales} placeholder="Sucursales" value="sucursales" />
 
                 </div>
                 { 
@@ -98,6 +109,17 @@ function Dashboard(props){
                             calldate: "Fecha de llamada",
                             duration: "Duración"
                         } } />
+                }
+
+                { 
+                
+                    calls.length == 0 &&
+                    <div className="nohay-wrapper">
+                        <span class="material-icons">
+                        bug_report
+                        </span>
+                        <p className="nohay">No trajo nada el servidor :(</p>
+                    </div>
                 }
             </div>
         </div>

@@ -1,8 +1,9 @@
 import React from 'react';
 
-function DropdownList({datos, value, callback,state, placeholder}){ 
+function DropdownList({datos, value, callback,state, placeholder, type}){ 
 
     function ChangeInputText(e){
+        
         const data = e.target.id.split(',');
         const exist = data.filter(res => {
             if(state.indexOf(res) === -1){ 
@@ -11,6 +12,11 @@ function DropdownList({datos, value, callback,state, placeholder}){
             return true;
         });
 
+        if(type==='one'){
+            callback(data);
+            return;
+        }
+        
         if(exist.length === 0 && e.target.checked){ 
             callback([...state, ...data])
             return;
@@ -49,10 +55,9 @@ function DropdownList({datos, value, callback,state, placeholder}){
                 { 
                     Array.isArray(datos) &&
                     datos.map(item => { 
-
                         return(
                             <label className="chekbox-list" tabIndex="5">
-                                <input autoFocus="false" type="checkbox" onChange={ChangeInputText} name={value}  id={item.value}/>
+                                <input radioGroup={value} type={type === 'one' ? "radio" : "checkbox"} autoFocus="false"  onChange={ChangeInputText} name={value}  id={item.value}/>
                                 <span className="checkbox-text">{item.name}</span>
                             </label>
                         )
