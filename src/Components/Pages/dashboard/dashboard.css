@@ -93,6 +93,11 @@ nav > div{
     height: 36px !important;
     border:none !important;
 }
+
+.input-select:hover >span{ 
+    color:var(--secondary-bg) !important;
+    cursor: pointer;
+}
 .input-select > .dropdown-list{
     position: absolute;
     top:55%;
@@ -131,7 +136,7 @@ nav > div{
     position: relative;
 }
 .chekbox-list:hover{
-    background-color:rgba(0,0,0,0.2);
+    background-color:rgba(0,0,0,0.1);
     filter: brightness(1.2);
     /* background-color:var(--secondary-bg); */
     /* color:white; */

@@ -87,7 +87,7 @@ function Dashboard(props){
                 </div>
                 { 
                     calls.length != 0 &&
-                    <Table data={calls}
+                    <Table data={calls} 
                         filters={{ 
                             dst: dstFilter,
                             src: sucursales

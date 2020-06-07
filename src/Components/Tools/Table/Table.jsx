@@ -44,6 +44,7 @@ function Table({ data, dataIgnored, actions, headers, filters }) {
     
 
     const entriesData = Object.entries(filters);
+    // Vamos a ver si el filtro tiene parametros de entrada
     const isFill = entriesData.filter(item => { 
       if( isArray(item[1])){ 
         
@@ -62,7 +63,7 @@ function Table({ data, dataIgnored, actions, headers, filters }) {
       return true;
     }
 
-
+    // 
     const data = entriesData.filter(item => {
       if(!propName[item[0]]){ 
         return false;
